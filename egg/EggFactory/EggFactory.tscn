@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://egg/EggFactory/EggFactory.gd" type="Script" id=1]
+[ext_resource path="res://egg/EggFactory/textures/dora_02_256x256.png" type="Texture" id=2]
+[ext_resource path="res://egg/EggFactory/textures/dora_03_256x256.png" type="Texture" id=3]
+[ext_resource path="res://egg/EggFactory/textures/dora_01_256x256.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "shake",
+"speed": 5.0
+} ]
+
+[node name="EggFactory" type="Node2D"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Sprites" type="AnimatedSprite" parent="." index="0"]
+
+position = Vector2( 3.98053, -11.2782 )
+frames = SubResource( 1 )
+animation = "shake"
+frame = 1
+playing = true
+
+[node name="dora_01_256x256" type="Sprite" parent="." index="1"]
+
+position = Vector2( 14.5279, -21.2109 )
+texture = ExtResource( 4 )
+
+[node name="SpawnPos" type="Position2D" parent="." index="2"]
+
+position = Vector2( -144.4, 74.9075 )
+
+[node name="Interval" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = true
+
+[connection signal="timeout" from="Interval" to="." method="_on_Interval_timeout"]
+
+

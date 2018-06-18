@@ -1,0 +1,641 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://World/World.gd" type="Script" id=1]
+[ext_resource path="res://GodotChan/GodotChan.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Tile/tile.tres" type="TileSet" id=3]
+[ext_resource path="res://Ground/Ground.tscn" type="PackedScene" id=4]
+[ext_resource path="res://World/camera.gd" type="Script" id=5]
+[ext_resource path="res://Weather/Weather.tscn" type="PackedScene" id=6]
+[ext_resource path="res://egg/EggFactory/EggFactory.tscn" type="PackedScene" id=7]
+[ext_resource path="res://egg/EggFactory/egg.ogg" type="AudioStream" id=8]
+[ext_resource path="res://World/papadora.png" type="Texture" id=9]
+[ext_resource path="res://World/ice_sprites.png" type="Texture" id=10]
+[ext_resource path="res://World/fire_sprites.png" type="Texture" id=11]
+[ext_resource path="res://World/dragon.ogg" type="AudioStream" id=12]
+[ext_resource path="res://World/bless1.ogg" type="AudioStream" id=13]
+[ext_resource path="res://World/bless2.ogg" type="AudioStream" id=14]
+[ext_resource path="res://World/countdownbar.png" type="Texture" id=15]
+[ext_resource path="res://fonts/font.tres" type="DynamicFont" id=16]
+[ext_resource path="res://World/bgm.ogg" type="AudioStream" id=17]
+
+[sub_resource type="Curve" id=4]
+
+min_value = 0.0
+max_value = 1.0
+bake_resolution = 100
+_data = [ Vector2( 0.00696683, 0.025 ), 0.0, 0.0, 0, 0, Vector2( 0.373998, 0.575 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+
+flags = 4
+width = 2048
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+
+render_priority = 0
+trail_divisor = 1
+emission_shape = 0
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = true
+spread = 60.0
+flatness = 0.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 1.0
+initial_velocity_random = 0.0
+angular_velocity = 0.0
+angular_velocity_random = 0.0
+orbit_velocity = 0.14
+orbit_velocity_random = 0.0
+linear_accel = 0.0
+linear_accel_random = 0.0
+radial_accel = 0.0
+radial_accel_random = 0.0
+tangential_accel = 50.0
+tangential_accel_random = 0.0
+damping = 0.0
+damping_random = 0.0
+angle = 0.0
+angle_random = 0.0
+scale = 6.0
+scale_random = 0.0
+scale_curve = SubResource( 5 )
+color = Color( 1, 1, 1, 1 )
+hue_variation = 0.0
+hue_variation_random = 0.0
+anim_speed = 10.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = true
+_sections_unfolded = [ "Animation", "Scale" ]
+
+[sub_resource type="Animation" id=2]
+
+resource_name = "cool"
+length = 7.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2, 5, 7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -38.4652, -297.059 ), Vector2( 259.988, 19.4824 ), Vector2( 259.988, 19.4824 ), Vector2( -38.4652, -297.059 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particle:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Particle:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 10 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Se:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -20.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Se:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CoolBless:volume_db")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -20.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("CoolBless:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 2, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=3]
+
+resource_name = "hot"
+length = 7.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2, 5, 7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -38.4652, -297.059 ), Vector2( 259.988, 19.4824 ), Vector2( 259.988, 19.4824 ), Vector2( -38.4652, -297.059 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particle:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Particle:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 11 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Se:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -20.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Se:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("HotBless:volume_db")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -20.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("HotBless:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 2, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=6]
+
+resource_name = "timeup"
+length = 4.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("timeup:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 522, 311 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("timeup:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "goto_result"
+} ]
+}
+
+[node name="World" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+
+[node name="GodotChan" parent="." index="0" instance=ExtResource( 2 )]
+
+position = Vector2( 155.65, 401.287 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="tiles" type="TileMap" parent="." index="1"]
+
+position = Vector2( -2.21606, -2.21606 )
+mode = 0
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 64, 64 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 3
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( -393216, 0, 0, -327680, 0, 0, -262144, 0, 0, -196608, 0, 0, -131072, 0, 0, -65536, 0, 0, 0, 0, 0, 65536, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 0, 0, 262163, 0, 0, 327680, 0, 0, 327699, 0, 0, 393216, 0, 0, 393235, 0, 0, 458752, 0, 0, 458771, 0, 0, 524288, 0, 0, 524307, 0, 0, 589824, 0, 0, 589843, 0, 0, 655360, 0, 0, 655379, 0, 0, 720896, 0, 0, 720915, 0, 0 )
+_sections_unfolded = [ "Cell", "Collision", "Transform", "Z Index" ]
+
+[node name="Tiles" type="Node2D" parent="." index="2"]
+
+[node name="Ground" parent="Tiles" index="0" instance=ExtResource( 4 )]
+
+position = Vector2( 96, 688 )
+temperature_type = 1
+
+[node name="Ground2" parent="Tiles" index="1" instance=ExtResource( 4 )]
+
+position = Vector2( 160, 688 )
+temperature_type = 0
+
+[node name="Ground3" parent="Tiles" index="2" instance=ExtResource( 4 )]
+
+position = Vector2( 224, 688 )
+temperature_type = 0
+
+[node name="Ground4" parent="Tiles" index="3" instance=ExtResource( 4 )]
+
+position = Vector2( 288, 688 )
+temperature_type = 0
+
+[node name="Ground5" parent="Tiles" index="4" instance=ExtResource( 4 )]
+
+position = Vector2( 352, 688 )
+temperature_type = 2
+
+[node name="Ground6" parent="Tiles" index="5" instance=ExtResource( 4 )]
+
+position = Vector2( 416, 688 )
+temperature_type = 2
+
+[node name="Ground7" parent="Tiles" index="6" instance=ExtResource( 4 )]
+
+position = Vector2( 480, 688 )
+temperature_type = 2
+
+[node name="Ground8" parent="Tiles" index="7" instance=ExtResource( 4 )]
+
+position = Vector2( 544, 688 )
+temperature_type = 2
+
+[node name="Ground9" parent="Tiles" index="8" instance=ExtResource( 4 )]
+
+position = Vector2( 608, 688 )
+temperature_type = 2
+
+[node name="Ground10" parent="Tiles" index="9" instance=ExtResource( 4 )]
+
+position = Vector2( 672, 688 )
+temperature_type = 2
+
+[node name="Ground11" parent="Tiles" index="10" instance=ExtResource( 4 )]
+
+position = Vector2( 736, 688 )
+temperature_type = 2
+
+[node name="Ground12" parent="Tiles" index="11" instance=ExtResource( 4 )]
+
+position = Vector2( 800, 688 )
+temperature_type = 2
+
+[node name="Ground13" parent="Tiles" index="12" instance=ExtResource( 4 )]
+
+position = Vector2( 864, 688 )
+temperature_type = 2
+
+[node name="Ground14" parent="Tiles" index="13" instance=ExtResource( 4 )]
+
+position = Vector2( 928, 688 )
+temperature_type = 2
+
+[node name="Ground15" parent="Tiles" index="14" instance=ExtResource( 4 )]
+
+position = Vector2( 992, 688 )
+temperature_type = 0
+
+[node name="Ground16" parent="Tiles" index="15" instance=ExtResource( 4 )]
+
+position = Vector2( 1056, 688 )
+temperature_type = 0
+
+[node name="Ground17" parent="Tiles" index="16" instance=ExtResource( 4 )]
+
+position = Vector2( 1120, 688 )
+temperature_type = 0
+
+[node name="Ground18" parent="Tiles" index="17" instance=ExtResource( 4 )]
+
+position = Vector2( 1184, 688 )
+temperature_type = 1
+
+[node name="Camera" type="Camera2D" parent="." index="3"]
+
+position = Vector2( 641.507, 360.493 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.2
+drag_margin_top = 0.2
+drag_margin_right = 0.2
+drag_margin_bottom = 0.2
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+script = ExtResource( 5 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Eggs" type="Node2D" parent="." index="4"]
+
+[node name="Weather" parent="." index="5" instance=ExtResource( 6 )]
+
+layer = -2
+
+[node name="EggFactory" parent="." index="6" instance=ExtResource( 7 )]
+
+position = Vector2( 1190.56, 214.211 )
+
+[node name="Timer" type="Timer" parent="EggFactory" index="4"]
+
+process_mode = 1
+wait_time = 15.0
+one_shot = false
+autostart = true
+
+[node name="Se" type="AudioStreamPlayer" parent="EggFactory" index="5"]
+
+stream = ExtResource( 8 )
+volume_db = -10.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="WeatherTimer" type="Timer" parent="." index="7"]
+
+process_mode = 1
+wait_time = 10.0
+one_shot = false
+autostart = true
+
+[node name="papadora" type="Sprite" parent="." index="8"]
+
+position = Vector2( -38.4652, -297.059 )
+rotation = 1.13861
+texture = ExtResource( 9 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Particle" type="Particles2D" parent="papadora" index="0"]
+
+position = Vector2( 248.453, -32.8673 )
+rotation = -1.42547
+scale = Vector2( 1, 1 )
+emitting = false
+amount = 64
+lifetime = 5.0
+one_shot = false
+preprocess = 0.0
+speed_scale = 6.0
+explosiveness = 0.0
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = true
+draw_order = 0
+process_material = SubResource( 1 )
+texture = ExtResource( 10 )
+normal_map = null
+h_frames = 3
+v_frames = 1
+_sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time" ]
+
+[node name="Anim" type="AnimationPlayer" parent="papadora" index="1"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/cool = SubResource( 2 )
+anims/hot = SubResource( 3 )
+blend_times = [  ]
+
+[node name="Se" type="AudioStreamPlayer" parent="papadora" index="2"]
+
+stream = ExtResource( 12 )
+volume_db = -20.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="HotBless" type="AudioStreamPlayer" parent="papadora" index="3"]
+
+stream = ExtResource( 13 )
+volume_db = -20.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="CoolBless" type="AudioStreamPlayer" parent="papadora" index="4"]
+
+stream = ExtResource( 14 )
+volume_db = -20.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="CountdownBar" type="TextureProgress" parent="." index="9"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 564.0
+margin_top = 52.0
+margin_right = 948.0
+margin_bottom = 116.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+min_value = 0.0
+max_value = 60.0
+step = 1.0
+page = 0.0
+value = 60.0
+exp_edit = false
+rounded = false
+texture_under = null
+texture_over = null
+texture_progress = ExtResource( 15 )
+radial_fill_degrees = 360.0
+radial_center_offset = Vector2( 0, 0 )
+nine_patch_stretch = false
+_sections_unfolded = [ "Textures" ]
+
+[node name="timeup" type="Label" parent="." index="10"]
+
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 522.0
+margin_top = 311.0
+margin_right = 840.0
+margin_bottom = 376.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 16 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "TIME UP!!"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Rect", "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Anim" type="AnimationPlayer" parent="." index="11"]
+
+pause_mode = 2
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/timeup = SubResource( 6 )
+blend_times = [  ]
+_sections_unfolded = [ "Pause" ]
+
+[node name="Bgm" type="AudioStreamPlayer" parent="." index="12"]
+
+stream = ExtResource( 17 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[connection signal="weather_change_start" from="Weather" to="." method="_on_Weather_weather_change_start"]
+
+[connection signal="spawn" from="EggFactory" to="." method="_on_EggFactory_spawn"]
+
+[connection signal="timeout" from="EggFactory/Timer" to="." method="_on_Timer_timeout"]
+
+[connection signal="timeout" from="WeatherTimer" to="." method="_on_WeatherTimer_timeout"]
+
+

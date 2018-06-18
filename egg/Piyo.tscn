@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://egg/textures/baby_piyo_64x64.png" type="Texture" id=1]
+[ext_resource path="res://egg/fly.tres" type="Animation" id=2]
+
+[node name="Piyo" type="Node2D" index="0"]
+
+_sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Anim" type="AnimationPlayer" parent="." index="1"]
+
+root_node = NodePath("..")
+autoplay = "fly"
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/fly = ExtResource( 2 )
+blend_times = [  ]
+
+
