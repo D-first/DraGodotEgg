@@ -3,6 +3,12 @@ extends Node2D
 var time
 
 func _ready():
+	Game.godot  = 0
+	Game.green  = 0
+	Game.peach  = 0
+	Game.white  = 0
+	Game.gold   = 0
+	Game.silver = 0
 	$Bgm.play()
 	time = 60
 	for ground in $Tiles.get_children():
